@@ -4,13 +4,20 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"  // throw error msg and didn't stop program
+	"github.com/stretchr/testify/require" // throw error msg and stop program
 )
 
 func TestHelloWorldAssert(t *testing.T) {
-	result := HelloWorld("Dendi") // testing
-	assert.Equal(t, "Hello World", result, "Result must be 'Hello World'")
+	result := HelloWorld("World")                                          // testing
+	assert.Equal(t, "Hello World", result, "Result must be 'Hello World'") // throw error msg and didn't stop program
 	fmt.Println("TestHelloWorldAssert with Assert Done")
+}
+
+func TestHelloWorldRequire(t *testing.T) {
+	result := HelloWorld("LOREM IPSUM DOLORR")                              // testing
+	require.Equal(t, "Hello World", result, "Result must be 'Hello World'") // throw error msg and stop program
+	fmt.Println("TestHelloWorldRequire with Require Done")
 }
 
 func TestHelloWorld(t *testing.T) {
