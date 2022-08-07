@@ -9,6 +9,60 @@ import (
 	"github.com/stretchr/testify/require" // throw error msg and stop program
 )
 
+// TABLE BENCHMARK
+func BenchmarkTable(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "World",
+			request: "Wolrd",
+		},
+		{
+			name:    "Damar",
+			request: "Damar",
+		},
+		{
+			name:    "Raden Ario Damar",
+			request: "Raden Ario Damar",
+		},
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			Hello(benchmark.request)
+		})
+	}
+}
+
+// SUB BENCHMARK
+func BenchmarkSub(b *testing.B) {
+	b.Run("World", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Hello("World")
+		}
+	})
+	b.Run("Damar", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Hello("Damar")
+		}
+	})
+}
+
+// BENCHMARK
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Hello("World")
+	}
+}
+
+func BenchmarkHelloDamar(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Hello("Damar")
+	}
+}
+
 // TABLE TEST
 func TestTableHello(t *testing.T) {
 	tests := []struct {
@@ -48,7 +102,7 @@ func TestSubTest(t *testing.T) {
 		require.Equal(t, "Hello Raden", result, "Result must be 'Hello Raden'")
 	})
 	t.Run("Ario", func(t *testing.T) {
-		result := Hello("Dendi")
+		result := Hello("Ario")
 		require.Equal(t, "Hello Ario", result, "Result must be 'Hello Ario'")
 	})
 }
@@ -57,7 +111,7 @@ func TestSubTest(t *testing.T) {
 func TestMain(m *testing.M) {
 	fmt.Println("Do stuff before Unit Test, in This PACKAGE 'helper'")
 	m.Run() // execute
-	fmt.Println("Do Unit Test Now, , in This PACKAGE 'helper'")
+	fmt.Println("Do Unit Test Now, in This PACKAGE 'helper'")
 }
 
 // TEST SKIP
